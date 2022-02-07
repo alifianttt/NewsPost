@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NewsPost</string>
+    <string name="name_label">Name\t\t\t\t\t:</string>
+    <string name="email_label">Email\t\t\t\t\t:</string>
+    <string name="address_label">Address\t\t\t:</string>
+    <string name="company_label">Company\t:</string>
+    <string name="label_writer">By : %1$s</string>
+</resources>

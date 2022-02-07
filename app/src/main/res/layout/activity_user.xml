@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.UserActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAdd"
+        android:layout_width="0dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/TextView.Bold20spBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Detail"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarAdd"
+        app:layout_constraintEnd_toEndOf="@+id/toolbarAdd"
+        app:layout_constraintStart_toStartOf="@+id/toolbarAdd"
+        app:layout_constraintTop_toTopOf="@+id/toolbarAdd" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swrPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAdd">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvLabel"
+                style="@style/TextView.Bold15spBlack"
+                android:layout_marginTop="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/name_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvValueName"
+                style="@style/TextView.Medium15spBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Budi"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLabel"
+                app:layout_constraintStart_toEndOf="@+id/tvLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvLabel" />
+
+            <TextView
+                android:id="@+id/tvLabelemail"
+                style="@style/TextView.Bold15spBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/email_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabel" />
+
+            <TextView
+                android:id="@+id/tvValueEmail"
+                style="@style/TextView.Medium15spBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Budi"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLabelemail"
+                app:layout_constraintStart_toEndOf="@+id/tvLabelemail"
+                app:layout_constraintTop_toTopOf="@+id/tvLabelemail" />
+
+            <TextView
+                android:id="@+id/tvLabelAddress"
+                style="@style/TextView.Bold15spBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/address_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabelemail" />
+
+            <TextView
+                android:id="@+id/tvValueAddress"
+                style="@style/TextView.Medium15spBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Budi"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLabelAddress"
+                app:layout_constraintStart_toEndOf="@+id/tvLabelAddress"
+                app:layout_constraintTop_toTopOf="@+id/tvLabelAddress" />
+
+            <TextView
+                android:id="@+id/tvLabelCompany"
+                style="@style/TextView.Bold15spBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/company_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabelAddress" />
+
+            <TextView
+                android:id="@+id/tvValueCompany"
+                style="@style/TextView.Medium15spBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Budi"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLabelCompany"
+                app:layout_constraintStart_toEndOf="@+id/tvLabelCompany"
+                app:layout_constraintTop_toTopOf="@+id/tvLabelCompany" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPhoto"
+                android:layout_width="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabelCompany" />
+
+            <ProgressBar
+                android:id="@+id/pbNews"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
