@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.assessment.newspost.model.CommentModel
 import com.assessment.newspost.model.PostModel
 import com.assessment.newspost.model.UserModel
 import com.assessment.newspost.utils.Status
+import com.assessment.newspost.utils.setVisible
 import com.assessment.newspost.utils.toasShort
 import com.assessment.newspost.viewmodel.NewsViewModel
 import org.jsoup.Jsoup
@@ -66,17 +69,35 @@ class DetailActivity : AppCompatActivity() {
             idUser = it.userId ?: 0
         }
 
+        binding.swrDetail.setOnRefreshListener {
+            newsViewModel.getDetailNews(idNews)
+            newsViewModel.getCommentList(idNews)
+        }
+
         binding.tvUser.setOnClickListener {
             startActivity(UserActivity.newIntent(this, idUser))
+        }
+
+        binding.commentTitle.setOnClickListener {
+            when(binding.rvComment.isVisible){
+                true -> {
+                    binding.rvComment.setVisible(false)
+                    binding.commentTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this, R.drawable.ic_arrow_down), null)
+                }
+                false -> {
+                    binding.rvComment.setVisible(true)
+                    binding.commentTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this, R.drawable.ic_arrow_up), null)
+                }
+            }
         }
     }
 
     fun getNewsDetail(callbacks: (PostModel) -> Unit){
         newsViewModel.getNewsData().observe(this, Observer {
             when(it.status){
-                Status.LOADING -> toasShort("Loading")
+                Status.LOADING -> showLoading(true)
                 Status.SUCCES -> it.data?.let { post -> callbacks(post) }
-                Status.ERROR -> toasShort("Error")
+                Status.ERROR -> toasShort(it.message.toString())
             }
         })
     }
@@ -84,8 +105,17 @@ class DetailActivity : AppCompatActivity() {
     fun getCommentList(callbacks: (List<CommentModel>) -> Unit){
         newsViewModel.getCommentData().observe(this, Observer {
             when(it.status){
-                Status.LOADING -> toasShort("Loading")
-                Status.SUCCES -> it.data.let { list ->  callbacks(list?.toCollection(ArrayList()) ?: emptyList())}
+                Status.LOADING -> showLoading(true)
+                Status.SUCCES -> {
+                    showLoading(false)
+                    it.data.let { list ->
+                        callbacks(list?.toCollection(ArrayList()) ?: emptyList())
+                    }
+                }
+                Status.ERROR -> {
+                    toasShort(it.message.toString())
+                    showLoading(false)
+                }
             }
         })
     }
@@ -102,5 +132,9 @@ class DetailActivity : AppCompatActivity() {
             adapter = commentAdapter
             layoutManager = LinearLayoutManager(this@DetailActivity)
         }
+    }
+
+    private fun showLoading(show: Boolean){
+        binding.swrDetail.isRefreshing = show
     }
 }
