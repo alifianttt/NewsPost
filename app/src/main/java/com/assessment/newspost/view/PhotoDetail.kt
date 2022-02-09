@@ -148,16 +148,25 @@ class PhotoDetail : AppCompatActivity() {
     private fun setupViewModel(){
         viewModel = ViewModelProviders.of(this)[NewsViewModel::class.java]
         viewModel.getPhotoDetail(photoId)
+        binding.swrPhoto.setOnRefreshListener {
+            viewModel.getPhotoDetail(photoId)
+        }
     }
 
     private fun getPhotoData(callbacks:(PhotoModel) -> Unit){
         viewModel.getPhoto().observe(this, Observer {
             when(it.status){
-                Status.LOADING -> toasShort("Loading")
-                Status.SUCCES -> it.data?.let { photo ->
-                    callbacks(photo)
+                Status.LOADING -> showLoading(true)
+                Status.SUCCES -> {
+                    showLoading(false)
+                    it.data?.let { photo ->
+                        callbacks(photo)
+                    }
                 }
-                Status.ERROR -> toasShort("Terjadi Kesalahan")
+                Status.ERROR -> {
+                    showLoading(false)
+                    toasShort(it.message.toString())
+                }
             }
         })
     }
@@ -171,5 +180,9 @@ class PhotoDetail : AppCompatActivity() {
 
         binding.tvPhotoTitle.text = photoModel.title?.uppercase()
         binding.imageView.setOnTouchListener(touch)
+    }
+
+    private fun showLoading(show: Boolean){
+        binding.swrPhoto.isRefreshing = show
     }
 }

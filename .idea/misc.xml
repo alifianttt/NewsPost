@@ -12,7 +12,7 @@
         <entry key="app/src/main/res/layout/activity_add_news.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_photo_detail.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_photo_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_user.xml" value="0.335" />
         <entry key="app/src/main/res/layout/field_label.xml" value="0.625" />
         <entry key="app/src/main/res/layout/item_album.xml" value="0.45" />
