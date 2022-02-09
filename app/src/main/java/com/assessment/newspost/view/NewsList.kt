@@ -36,15 +36,15 @@ class NewsList : AppCompatActivity() {
     private fun initView(){
         dialogBinding = BottomSheetDialog(this, R.style.DialogSave)
         newsViewModel = ViewModelProviders.of(this)[NewsViewModel::class.java]
-        binding.swrList.setOnRefreshListener {
-            newsViewModel.fetchNews()
-            newsViewModel.getAllUsers()
-        }
+        newsadapter = NewsAdapter(listNews, listUser)
     }
 
     private fun setupViewModel(){
         newsViewModel = ViewModelProviders.of(this)[NewsViewModel::class.java]
         getAllNews()
+        binding.swrList.setOnRefreshListener {
+            getAllNews()
+        }
     }
 
     private fun getAllNews(){
@@ -53,17 +53,13 @@ class NewsList : AppCompatActivity() {
         newsViewModel.getNews().observe(this, Observer {
             when(it.status){
                 Status.SUCCES -> {
-                    toasShort("Sukses")
                     listNews.clear()
                     listNews.addAll(it.data?.toCollection(ArrayList()) ?: emptyList())
-                    Log.d("news list", listNews.toString())
                     setListNews(listNews)
                     showLoading(false)
-                    //binding.rvNews.setVisible(true)
                 }
                 Status.LOADING -> {
                     if (listNews.isNotEmpty()) listNews.clear()
-                    //binding.rvNews.setVisible(false)
                     showLoading(true)
                 }
                 Status.ERROR -> {
@@ -76,13 +72,11 @@ class NewsList : AppCompatActivity() {
         newsViewModel.getUsersList().observe(this, Observer {
             when(it.status){
                 Status.SUCCES -> {
-                    toasShort("Sukses")
                     listUser.clear()
                     listUser.addAll(it.data?.toCollection(ArrayList()) ?: emptyList())
                     showLoading(false)
                 }
                 Status.LOADING -> {
-                    if (listNews.isNotEmpty()) listNews.clear()
                     showLoading(true)
                 }
                 Status.ERROR -> {
@@ -98,10 +92,8 @@ class NewsList : AppCompatActivity() {
         override fun onClick(news: PostModel, user: UserModel) {
             startActivity(DetailActivity.newIntent(this@NewsList, news.id ?: 0, user.name.toString()))
         }
-
-
-
     }
+
     private fun setListNews(data: List<PostModel>){
         val newUser = ArrayList<UserModel>()
         if (listUser.size > 0){
@@ -114,9 +106,9 @@ class NewsList : AppCompatActivity() {
             }
             newsadapter = NewsAdapter(data.toCollection(ArrayList()), newUser, listener)
             binding.rvNews.adapter = newsadapter
+            binding.rvNews.layoutManager = LinearLayoutManager(this)
         }
-
-        binding.rvNews.layoutManager = LinearLayoutManager(this)
+        newsadapter.notifyDataSetChanged()
 
     }
 

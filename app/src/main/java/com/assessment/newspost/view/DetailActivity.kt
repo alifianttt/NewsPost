@@ -96,7 +96,9 @@ class DetailActivity : AppCompatActivity() {
         newsViewModel.getNewsData().observe(this, Observer {
             when(it.status){
                 Status.LOADING -> showLoading(true)
-                Status.SUCCES -> it.data?.let { post -> callbacks(post) }
+                Status.SUCCES -> it.data?.let {
+                        post -> callbacks(post)
+                }
                 Status.ERROR -> toasShort(it.message.toString())
             }
         })
@@ -121,7 +123,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     fun showDetail(news: PostModel?){
-        binding.tvTitleDetail.text = news?.title
+        binding.tvTitleDetail.text = news?.title?.uppercase()
         binding.tvUser.text = String.format(getString(R.string.label_writer), userName)
         binding.contentDetail.text = news?.body
     }

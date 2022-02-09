@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.assessment.newspost.R
 import com.assessment.newspost.adapter.AlbumAdapter
 import com.assessment.newspost.adapter.PhotoAdapter
 import com.assessment.newspost.databinding.ActivityUserBinding
@@ -47,7 +48,7 @@ class UserActivity : AppCompatActivity() {
 
     private val listener = object : PhotoAdapter.PhotoListener{
         override fun onClick(photoModel: PhotoModel) {
-            toasShort("klik phot ${photoModel.title}")
+            startActivity(PhotoDetail.newIntent(this@UserActivity, photoModel.id ?: 0))
         }
 
     }
@@ -63,23 +64,26 @@ class UserActivity : AppCompatActivity() {
             viewModel.userDetail(idUser)
             viewModel.getAlbumList(idUser)
             viewModel.getPhotoList(idUser)
+            listAlbum.clear()
+            listPhoto.clear()
         }
 
         getUserData { userModel ->
             setupView(userModel)
         }
 
-        listAlbum.clear()
-        listPhoto.clear()
+        getAlbumList {
+            listAlbum.addAll(it)
+            setupAlbumList(listAlbum)
+        }
         getPhotoList {
             listPhoto.addAll(it)
+            setupAlbumList(listAlbum, listPhoto)
             albumAdapter.notifyDataSetChanged()
         }
 
-        getAlbumList {
-            listAlbum.addAll(it)
-            setupAlbumList(listAlbum, listPhoto)
-        }
+
+
 
     }
 
@@ -94,7 +98,7 @@ class UserActivity : AppCompatActivity() {
                     }
                 }
                 Status.ERROR -> {
-                    toasShort("Terjadi Kesalahan")
+                    toasShort(it.message.toString())
                     showLoading(false)
                 }
             }
@@ -107,10 +111,9 @@ class UserActivity : AppCompatActivity() {
                 Status.LOADING -> showLoading(true)
                 Status.SUCCES -> {
                     listAlbum.clear()
-                    it.data?.let {
-                            album -> callbacks(album)
+                    it.data?.let { album ->
+                        callbacks(album)
                     }
-                    showLoading(false)
                 }
                 Status.ERROR -> showLoading(false)
             }
@@ -127,7 +130,6 @@ class UserActivity : AppCompatActivity() {
                     it.data?.let { photo ->
                         callbacks(photo)
                     }
-                    albumAdapter.notifyDataSetChanged()
                 }
                 Status.ERROR -> showLoading(false)
             }
@@ -135,17 +137,28 @@ class UserActivity : AppCompatActivity() {
     }
 
     private fun setupView(userModel: UserModel){
-        binding.tvValueName.text = userModel.name
-        binding.tvValueEmail.text = userModel.email
-        binding.tvValueAddress.text = userModel.address?.city
-        binding.tvValueCompany.text = userModel.company?.name
+        binding.fieldName.tvLabel.text = getString(R.string.name_label)
+        binding.fieldName.tvValue.text = userModel.name
+
+        binding.fieldEmail.tvLabel.text = getString(R.string.email_label)
+        binding.fieldEmail.tvValue.text = userModel.email
+
+        binding.fieldAddress.tvLabel.text = getString(R.string.address_label)
+        binding.fieldAddress.tvValue.text = String.format(getString(R.string.address_format), userModel.address?.street, userModel.address?.city)
+
+        binding.fieldCompany.tvLabel.text = getString(R.string.company_label)
+        binding.fieldCompany.tvValue.text = userModel.company?.name
+
     }
 
-    private fun setupAlbumList(album: List<AlbumModel>, listPhoto: List<PhotoModel>){
-        albumAdapter = AlbumAdapter(album.toCollection(ArrayList()), listPhoto.toCollection(ArrayList()), this, listener)
-        binding.rvPhoto.apply {
-            adapter = albumAdapter
-            layoutManager = LinearLayoutManager(this@UserActivity)
+    private fun setupAlbumList(album: List<AlbumModel>, listPhoto: List<PhotoModel> = listOf()){
+        if (album.isNotEmpty() && listPhoto.isNotEmpty()){
+            albumAdapter = AlbumAdapter(album.toCollection(ArrayList()), listPhoto.toCollection(ArrayList()), this, listener)
+            binding.rvPhoto.apply {
+                adapter = albumAdapter
+                layoutManager = LinearLayoutManager(this@UserActivity)
+            }
+            albumAdapter.notifyDataSetChanged()
         }
 
         Log.d("view Photo", listPhoto.size.toString())
