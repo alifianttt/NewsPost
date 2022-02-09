@@ -58,4 +58,10 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
     </style>
+
+    <style name="TextView.Bold25spBlack">
+        <item name="fontFamily">@font/playfair_display_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
