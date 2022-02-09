@@ -6,77 +6,106 @@
     android:layout_height="match_parent"
     tools:context=".view.DetailActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDetail"
+        style="@style/TextView.BoldGeneral20spBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detail News"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarDetail"
+        app:layout_constraintEnd_toEndOf="@+id/toolbarDetail"
+        app:layout_constraintStart_toStartOf="@+id/toolbarDetail"
+        app:layout_constraintTop_toTopOf="@+id/toolbarDetail" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swrDetail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDetail">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvTitleDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/TextView.BoldGeneral20spBlack"
-                android:gravity="center"
-                android:text="Title"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvUser"
-                style="@style/TextView.Medium13spBlack"
-                android:layout_marginTop="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:text="@string/label_writer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetail" />
-
-            <TextView
-                android:id="@+id/contentDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                style="@style/TextView.Medium15spBlack"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:justificationMode="inter_word"
-                android:text="Berita"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUser" />
-
-            <TextView
-                android:id="@+id/commentTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextView.Bold13spBlack"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:text="Comment"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentDetail" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvComment"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/commentTitle" />
+                android:layout_height="500dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/tvTitleDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextView.Bold20spBlack"
+                    android:gravity="center"
+                    android:text="Title"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvUser"
+                    style="@style/TextView.Medium13spBlack"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/label_writer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleDetail" />
+
+                <TextView
+                    android:id="@+id/contentDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    style="@style/TextView.Medium15spBlack"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:justificationMode="inter_word"
+                    android:text="N/A"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUser" />
+
+                <TextView
+                    android:id="@+id/commentTitle"
+                    style="@style/TextView.Bold13spBlack"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:drawableEnd="@drawable/ic_arrow_down"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Comment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contentDetail" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/commentTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="100:90"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,13 +19,10 @@
 
     <TextView
         android:id="@+id/tvPhotoTitle"
-        style="@style/TextView.Bold13spBlack"
+        style="@style/TextView.Bold25spBlack"
         android:layout_width="0dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Photo Jadul"
         android:layout_height="wrap_content"
+        android:text="N/A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
