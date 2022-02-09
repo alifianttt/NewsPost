@@ -13,6 +13,7 @@ import com.assessment.newspost.R
 import com.assessment.newspost.databinding.ItemPhotoBinding
 import com.assessment.newspost.model.PhotoModel
 import com.assessment.newspost.utils.Constants
+import com.assessment.newspost.utils.getUrl
 import com.bumptech.glide.Glide
 
 import com.bumptech.glide.request.RequestOptions
@@ -48,12 +49,7 @@ class PhotoAdapter(val dataPhoto: ArrayList<PhotoModel>,  val listener: PhotoLis
                 .placeholder(R.drawable.img_place)
                 .error(R.drawable.ic_delete)
 
-            val url = GlideUrl(
-                photoModel.thumbnailUrl, LazyHeaders.Builder()
-                    .addHeader("User-Agent", Constants.CONFIG.USER_AGENT)
-                    .build()
-            )
-            Glide.with(itemView.context).load(url).apply(options).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).centerCrop().into(binding.photoData)
+            Glide.with(itemView.context).load(getUrl(photoModel.thumbnailUrl.toString())).apply(options).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).centerCrop().into(binding.photoData)
             binding.photoData.setOnClickListener {
                 listener?.onClick(photoModel)
             }
