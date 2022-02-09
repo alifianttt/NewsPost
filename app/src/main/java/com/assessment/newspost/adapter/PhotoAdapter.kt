@@ -47,7 +47,7 @@ class PhotoAdapter(val dataPhoto: ArrayList<PhotoModel>,  val listener: PhotoLis
             val options: RequestOptions = RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.img_place)
-                .error(R.drawable.ic_delete)
+                .error(R.drawable.ic_launcher_background)
 
             Glide.with(itemView.context).load(getUrl(photoModel.thumbnailUrl.toString())).apply(options).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).centerCrop().into(binding.photoData)
             binding.photoData.setOnClickListener {
