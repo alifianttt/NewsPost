@@ -29,7 +29,7 @@ class AlbumAdapter(private var dataAlbum: ArrayList<AlbumModel> = arrayListOf(),
         fun bind(albumModel: AlbumModel, photoModel: ArrayList<PhotoModel>, context: Context, listener: PhotoAdapter.PhotoListener? = null) = with(itemView){
             val binding = ItemAlbumBinding.bind(itemView)
             val adapterPhoto = PhotoAdapter(photoModel, listener)
-            binding.albumTitle.text = albumModel.title
+            binding.albumTitle.text = albumModel.title?.uppercase()
             binding.rvListPhoto.apply {
                 adapter = adapterPhoto
                 layoutManager = /*LinearLayoutManager(context)*/ GridLayoutManager(context, 4)
