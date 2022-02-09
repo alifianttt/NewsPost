@@ -24,7 +24,7 @@ class NewsAdapter(private var data: ArrayList<PostModel> = arrayListOf(), privat
     class NewsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(news: PostModel, user: UserModel ,listener: NewsListener?) = with(itemView){
             val binding = ItemNewsBinding.bind(itemView)
-            binding.newsTitle.text = news.title
+            binding.newsTitle.text = news.title?.uppercase()
             binding.newsDetail.text = news.body
 
             binding.newsUser.text = user.name
