@@ -1,15 +1,33 @@
 package com.assessment.newspost.network
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class Network {
     private fun getNetwork() : Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(getClient())
             .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private val intercepter = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private fun getClient() : OkHttpClient{
+        return OkHttpClient
+            .Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(intercepter)
             .build()
     }
 
