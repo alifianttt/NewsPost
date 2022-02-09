@@ -34,7 +34,7 @@ class PhotoDetail : AppCompatActivity() {
         fun newIntent(context: Context, idPhoto: Int) : Intent{
             return Intent(context, PhotoDetail::class.java)
                 .putExtra(KEY_PHOTO, idPhoto)
-                .setFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
+                .setFlags(FLAG_ACTIVITY_NEW_TASK)
         }
     }
     private lateinit var binding: ActivityPhotoDetailBinding
