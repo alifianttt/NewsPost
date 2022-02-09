@@ -33,6 +33,7 @@ class DetailActivity : AppCompatActivity() {
             val i = Intent(context, DetailActivity::class.java)
             i.putExtra(DETAIL_KEY, id)
             i.putExtra(USER_KEY, userName)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             return i
         }
     }

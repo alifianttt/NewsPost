@@ -27,6 +27,8 @@ class UserActivity : AppCompatActivity() {
         fun newIntent(context: Context, id : Int = 0) : Intent {
             return Intent(context, UserActivity::class.java)
                 .putExtra(ID_KEY, id)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+
         }
     }
 

@@ -3,6 +3,7 @@ package com.assessment.newspost.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.*
 import android.graphics.Matrix
 import android.graphics.PointF
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,7 @@ class PhotoDetail : AppCompatActivity() {
         fun newIntent(context: Context, idPhoto: Int) : Intent{
             return Intent(context, PhotoDetail::class.java)
                 .putExtra(KEY_PHOTO, idPhoto)
+                .setFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
         }
     }
     private lateinit var binding: ActivityPhotoDetailBinding
